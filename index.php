@@ -11,16 +11,28 @@
  */
 
 // ----------- Connexion -----------
-$DB_HOST = 'localhost';
-$DB_USER = 'root';
-$DB_PASS = '';
-$DB_NAME = 'universite';
+<?php
+
+$DB_HOST = getenv('MYSQLHOST');
+$DB_USER = getenv('MYSQLUSER');
+$DB_PASS = getenv('MYSQLPASSWORD');
+$DB_NAME = getenv('MYSQLDATABASE');
+$DB_PORT = getenv('MYSQLPORT');
 
 mysqli_report(MYSQLI_REPORT_OFF);
-$conn = @new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+$conn = @new mysqli(
+    $DB_HOST,
+    $DB_USER,
+    $DB_PASS,
+    $DB_NAME,
+    $DB_PORT
+);
+
 if ($conn->connect_error) {
     die("Erreur de connexion : " . htmlspecialchars($conn->connect_error));
 }
+
 $conn->set_charset('utf8mb4');
 
 // ----------- Matricule (X) -----------
